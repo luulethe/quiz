@@ -1,0 +1,20 @@
+debug: True
+
+pprof: ":1235"
+
+listen: "0.0.0.0:1234"
+
+mysql:
+  - name: "quiz_db"
+    address: "127.0.0.1:3306"
+    replica:
+      - "127.0.0.1:3306"
+    username: "root"
+    password: "Aa123456"
+
+quiz_kafka:
+  brokers: ""
+  version: "1.1.0"
+  consumer_group: "quiz-event-consumer_dev"
+
+sentry_dns: ""

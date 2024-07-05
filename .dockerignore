@@ -1,0 +1,11 @@
+.git
+.cache
+.gitignore
+.gitmodules
+.dockerignore
+.gitlab-ci.yml
+Dockerfile
+ci/lint_runner/Dockerfile
+ci/test_runner/Dockerfile
+logs
+app

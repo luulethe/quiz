@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package quiz;
+import "const.proto";
+
+option go_package = "pb/quiz_api";
+
+service QuizService {
+  rpc Handle (RequestData) returns (ResponseData) {}
+}
+
+message RequestData {
+  const.Command command = 1;
+  bytes request = 2;
+}
+
+message ResponseData {
+  const.Error result = 1;
+  bytes response = 2;
+}
+
+/// CMD_JOIN_QUIZ request
+message JoinQuizRequest {
+  int64 user_id = 1;
+  int64 quiz_id = 2;
+}
+
+/// CMD_NOTE_LIST reply
+message JoinQuizRequestReply {
+}

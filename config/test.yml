@@ -1,0 +1,20 @@
+debug: True
+
+pprof: ":8081"
+
+listen: "0.0.0.0:8080"
+
+mysql:
+  - name: "quiz_db"
+    address: ""
+    replica:
+      - ""
+    username: "dev"
+    password: "${DB_PASSWORD}"
+
+quiz_kafka:
+  brokers: ""
+  version: "1.1.0"
+  consumer_group: "quiz-event-consumer"
+
+sentry_dns: ""

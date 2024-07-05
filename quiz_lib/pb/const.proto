@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package const;
+
+option go_package = "pb/quiz_api";
+
+enum Command {
+  CMD_PING = 0;
+  CMD_JOIN_QUIZ = 1;
+}
+
+enum Error {
+  ERROR_OK = 0;
+  ERROR_QUIZ_NOT_EXITED = 1;
+  ERROR_QUIZ_FINISHED = 2;
+  ERROR_USER_JOINED = 3;
+  ERROR_USER_NOT_EXISTED = 4;
+}
