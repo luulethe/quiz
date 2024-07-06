@@ -5,6 +5,7 @@ participant "Users" as users
 participant "Websocket Server" as ws
 participant "Quiz Logic Server" as qs
 database "Quiz Database" as db
+database "Redis Cluster" as redis
 database "Kafka" as kafka
 participant "Websocket Manager" as wsm
 
@@ -13,8 +14,18 @@ qs -> wsm: get server_ips of clients in this quiz_id
 wsm -> qs: response
 qs -> ws: notify about leaderboard changes
 ws -> users: send message to notify leaderboard changes
-users -> ws: get leaderboard score(quiz_id, page_id, page_size)
-ws -> qs: get leaderboard score(quiz_id, page_id, page_size)
+users -> ws: get leaderboard score(quiz_id, page_index, page_size)
+ws -> qs: get leaderboard score(quiz_id, page_index, page_size)
+
+alt cache existed
+    qs -> redis: check data by page_index, page_size in cache
+    redis -> qs: response data
+else cache not existed
+    qs -> db: get leaderboard score(quiz_id, page_index, page_size)
+    db -> qs: response
+    qs -> redis: update to cache
+    redis -> qs: response
+end
 qs -> ws: return participants and score
 ws -> users: return participants and score
 
