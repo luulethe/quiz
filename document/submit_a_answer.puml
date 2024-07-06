@@ -1,0 +1,20 @@
+@startuml
+autonumber
+
+participant "Users" as users
+participant "Websocket Server" as ws
+participant "Quiz Logic Server" as qs
+database "Quiz Database" as db
+database "Kafka" as kafka
+participant "Websocket Manager" as wsm
+
+users -> ws: send message to submit an answer(quiz_id, question_id, answer)
+ws -> qs: submit an answer(quiz_id, question_id, answer)
+qs -> qs: check an answer logic(is answered before,.. )
+qs -> db: Update answer and total score
+qs -> kafka: send message score change(quiz_id)
+db -> qs: response
+qs -> ws: response
+ws -> users: show answer result
+
+@enduml

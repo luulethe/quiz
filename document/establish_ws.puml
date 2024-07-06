@@ -1,0 +1,24 @@
+@startuml
+autonumber
+
+participant "Users" as users
+participant "Websocket Server" as ws
+participant "Auth Server" as auth
+participant "Websocket Manager" as wsm
+participant "Redis Cluster" as redis
+
+participant "Redis Cluster" as redis
+
+users -> ws: establish websocket connection to server
+ws -> auth: Check authentication
+auth -> ws: response user_id
+ws -> wsm: store mapping between user_id, client_id,  quiz_id, server_ip
+wsm -> redis: store mapping between user_id, client_id, quiz_id, server_ip
+redis -> wsm: response
+wsm -> ws: response
+ws -> users: response success
+
+
+
+
+@enduml

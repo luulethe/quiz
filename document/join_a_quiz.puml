@@ -1,0 +1,22 @@
+@startuml
+autonumber
+
+participant "Users" as users
+participant "Websocket Server" as ws
+participant "Quiz Logic Server" as qs
+database "Quiz Database" as db
+
+
+users -> ws: send message to join quiz(quiz_id)
+ws -> qs: request to join quiz(quiz_id, user_id)
+qs -> qs: check quiz logic(is_open,...)
+qs -> db: store a person to join a quiz
+db -> qs: response
+qs -> ws: response
+ws -> users: ack join status
+
+
+
+
+
+@enduml

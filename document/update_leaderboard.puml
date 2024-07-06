@@ -1,0 +1,25 @@
+@startuml
+autonumber
+
+participant "Users" as users
+participant "Websocket Server" as ws
+participant "Quiz Logic Server" as qs
+database "Quiz Database" as db
+database "Kafka" as kafka
+participant "Websocket Manager" as wsm
+
+kafka -> qs: consume new message about score change
+qs -> wsm: get server_ips of clients in this quiz_id
+wsm -> qs: response
+qs -> ws: notify about leaderboard changes
+ws -> users: send message to notify leaderboard changes
+users -> ws: get leaderboard score(quiz_id, page_id, page_size)
+ws -> qs: get leaderboard score(quiz_id, page_id, page_size)
+qs -> ws: return participants and score
+ws -> users: return participants and score
+
+
+
+
+
+@enduml
