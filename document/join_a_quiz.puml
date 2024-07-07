@@ -4,6 +4,7 @@ autonumber
 participant "Users" as users
 participant "Websocket Server" as ws
 participant "Quiz Logic Server" as qs
+database "Kafka" as kafka
 database "Quiz Database" as db
 
 
@@ -12,6 +13,7 @@ ws -> qs: request to join quiz(quiz_id, user_id)
 qs -> qs: check quiz logic(is_open,...)
 qs -> db: store a person to join a quiz
 db -> qs: response
+qs -> kafka: send async message to kafka to notify a new member join
 qs -> ws: response
 ws -> users: ack join status
 

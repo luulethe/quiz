@@ -9,7 +9,7 @@ database "Redis Cluster" as redis
 database "Kafka" as kafka
 participant "Websocket Manager" as wsm
 
-kafka -> qs: consume new message about score change
+kafka -> qs: consume new message about score changed or a new member joined
 qs -> wsm: get server_ips of clients in this quiz_id
 wsm -> qs: response
 qs -> ws: notify about leaderboard changes
